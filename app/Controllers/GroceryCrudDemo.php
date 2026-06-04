@@ -144,6 +144,15 @@ HTML;
         $crud = new GroceryCrud();
         $crud->setTable('products', 'Products');
 
+        // ======== Filter by category (from URL query param) ========
+        $categoryId = $this->request->getGet('category_id');
+        if ($categoryId !== null && $categoryId !== '') {
+            $crud->where('category_id', $categoryId);
+
+            // Set subject with filter indicator
+            $crud->setSubject('Products (filtered by category #' . $categoryId . ')');
+        }
+
         // ======== Columns to display in table ========
         $crud->setColumns('name', 'category_id', 'price', 'stock', 'is_active', 'image', 'created_at');
 
