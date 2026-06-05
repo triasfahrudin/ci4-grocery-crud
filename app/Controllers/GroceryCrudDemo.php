@@ -250,6 +250,9 @@ HTML;
         // ======== Language ========
         $crud->setLanguage('indonesian');
 
+        // ======== Theme ========
+        $crud->setTheme('adminlte4');
+
         // ======== Render ========
         return $crud->render();
     }
