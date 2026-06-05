@@ -16,7 +16,7 @@ class GroceryCrud extends BaseConfig
     /**
      * Default theme for rendering.
      */
-    public string $defaultTheme = 'bootstrap5';
+    public string $defaultTheme = 'adminlte4';
 
     /**
      * Items per page.

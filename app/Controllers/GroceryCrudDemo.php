@@ -240,6 +240,19 @@ HTML;
             return true;
         });
 
+        // ======== Column Filters ========
+        $crud->setColumnFilter('name', 'text');
+        $crud->setColumnFilter('is_active', 'dropdown', ['1' => 'Active', '0' => 'Inactive']);
+        $crud->setColumnFilter('category_id', 'dropdown', [
+            '1' => 'Electronics',
+            '2' => 'Clothing',
+            '3' => 'Books',
+            '4' => 'Home & Garden',
+        ]);
+
+        // ======== Batch Actions ========
+        $crud->setBatchAction('delete_selected', 'Delete Selected');
+
         // ======== Order & Pagination ========
         $crud->orderBy('created_at', 'DESC');
         $crud->setPerPage(10);
@@ -251,7 +264,7 @@ HTML;
         $crud->setLanguage('indonesian');
 
         // ======== Theme ========
-        $crud->setTheme('adminlte4');
+        $crud->setTheme('bootstrap5');
 
         // ======== Render ========
         return $crud->render();
