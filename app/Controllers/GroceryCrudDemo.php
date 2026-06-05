@@ -167,6 +167,9 @@ HTML;
         $crud->displayAs('price', 'Price (Rp)');
         $crud->displayAs('created_at', 'Created Date');
 
+        // ======== Active field as combobox dropdown ========
+        $crud->setFieldType('is_active', 'dropdown', ['1' => 'Active', '0' => 'Inactive']);
+
         // ======== Relation to categories (belongs_to) ========
         $crud->setRelation('category_id', 'categories', 'name', "status = 'active'", 'name ASC');
 
