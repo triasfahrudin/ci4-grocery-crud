@@ -243,12 +243,7 @@ HTML;
         // ======== Column Filters ========
         $crud->setColumnFilter('name', 'text');
         $crud->setColumnFilter('is_active', 'dropdown', ['1' => 'Active', '0' => 'Inactive']);
-        $crud->setColumnFilter('category_id', 'dropdown', [
-            '1' => 'Electronics',
-            '2' => 'Clothing',
-            '3' => 'Books',
-            '4' => 'Home & Garden',
-        ]);
+        $crud->setColumnFilterRelation('category_id', 'categories', 'name', 'id', "status = 'active'", 'name ASC');
 
         // ======== Batch Actions ========
         $crud->setBatchAction('delete_selected', 'Delete Selected');
