@@ -19,6 +19,13 @@ use GroceryCrud\GroceryCrud;
  * - File upload
  * - Custom actions
  * - Export
+ * - Column Filters (text, dropdown, relation)
+ * - Batch Actions (delete selected)
+ * - Sort by column headers
+ * - Image viewer (click thumbnail)
+ * - Repeater Fields (Nova-style repeatable groups)
+ * - AdminLTE 4 Theme
+ * - Indonesian language
  *
  * Usage:
  *   1. Run migration: php spark migrate -n App
@@ -110,7 +117,13 @@ class GroceryCrudDemo extends Controller
                                         <tr><td>Custom Actions</td><td>-</td><td>✓</td><td>-</td></tr>
                                         <tr><td>Export</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                         <tr><td>Search</td><td>✓</td><td>✓</td><td>✓</td></tr>
-                                        <tr><td>Field Type Override</td><td>-</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>Field Type Override</td><td>✓</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>Column Filters</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Batch Actions</td><td>✓</td><td>✓</td><td>-</td></tr>
+                                        <tr><td>Sort by Headers</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Image Viewer</td><td>✓</td><td>-</td><td>-</td></tr>
+                                        <tr><td>Repeater Fields</td><td>✓</td><td>-</td><td>-</td></tr>
+                                        <tr><td>AdminLTE 4 Theme</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -157,7 +170,7 @@ HTML;
         $crud->setColumns('name', 'category_id', 'price', 'stock', 'is_active', 'image', 'created_at');
 
         // ======== Fields in add/edit forms ========
-        $crud->setFields('name', 'category_id', 'description', 'price', 'stock', 'is_active', 'image', 'tags');
+        $crud->setFields('name', 'category_id', 'description', 'price', 'stock', 'is_active', 'image', 'specs', 'tags');
 
         // ======== Display labels ========
         $crud->displayAs('name', 'Product Name');
@@ -249,14 +262,14 @@ HTML;
         $crud->setBatchAction('delete_selected', 'Delete Selected');
 
         // ======== Repeater (Nova-style repeatable groups) ========
-        // JSON preset (requires JSON column, e.g. ALTER TABLE products ADD COLUMN specs JSON):
-        // $crud->setRepeater('specs', 'Product Specs', [
-        //     ['name' => 'key', 'label' => 'Spec', 'type' => 'text'],
-        //     ['name' => 'value', 'label' => 'Value', 'type' => 'text'],
-        // ], 'json');
+        // JSON preset — stores data as JSON in the `specs` column
+        $crud->setRepeater('specs', 'Product Specs', [
+            ['name' => 'key', 'label' => 'Specification', 'type' => 'text', 'rules' => 'required|max_length[100]'],
+            ['name' => 'value', 'label' => 'Value', 'type' => 'text', 'rules' => 'required|max_length[255]'],
+        ], 'json');
 
         // ======== Theme ========
-        $crud->setTheme('bootstrap5');
+        $crud->setTheme('adminlte4');
 
         // ======== Render ========
         return $crud->render();
@@ -295,6 +308,13 @@ HTML;
             'bi-eye',
             '/grocery-crud-demo/products?category_id={id}'
         );
+
+        // Column filters
+        $crud->setColumnFilter('name', 'text');
+        $crud->setColumnFilter('status', 'dropdown', ['active' => 'Active', 'inactive' => 'Inactive']);
+
+        // Batch Actions
+        $crud->setBatchAction('delete_selected', 'Hapus yang Dipilih');
 
         // Order
         $crud->orderBy('name', 'ASC');
@@ -351,6 +371,9 @@ HTML;
             return '<span class="badge" style="background-color: ' . htmlspecialchars($value) . '; color: #fff;">'
                 . htmlspecialchars($value) . '</span>';
         });
+
+        // Column filters
+        $crud->setColumnFilter('name', 'text');
 
         // Set language
         $crud->setLanguage('indonesian');
