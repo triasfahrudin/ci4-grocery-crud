@@ -248,15 +248,12 @@ HTML;
         // ======== Batch Actions ========
         $crud->setBatchAction('delete_selected', 'Delete Selected');
 
-        // ======== Order & Pagination ========
-        $crud->orderBy('created_at', 'DESC');
-        $crud->setPerPage(10);
-
-        // ======== Export ========
-        $crud->setExportable(true);
-
-        // ======== Language ========
-        $crud->setLanguage('indonesian');
+        // ======== Repeater (Nova-style repeatable groups) ========
+        // JSON preset (requires JSON column, e.g. ALTER TABLE products ADD COLUMN specs JSON):
+        // $crud->setRepeater('specs', 'Product Specs', [
+        //     ['name' => 'key', 'label' => 'Spec', 'type' => 'text'],
+        //     ['name' => 'value', 'label' => 'Value', 'type' => 'text'],
+        // ], 'json');
 
         // ======== Theme ========
         $crud->setTheme('bootstrap5');
