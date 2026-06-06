@@ -141,16 +141,6 @@ class GroceryCrudDemo extends Controller
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-3">
-                        <div class="card h-100 shadow-sm border-warning">
-                            <div class="card-body text-center">
-                                <div class="display-6 mb-2 text-warning">BM</div>
-                                <h5 class="card-title">Bulma</h5>
-                                <p class="card-text text-muted small">Flexbox-based CSS framework with elegant design.</p>
-                                <a href="/grocery-crud-demo/theme-demo/bulma" class="btn btn-warning w-100 text-white">Open Demo</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-3">
                         <div class="card h-100 shadow-sm border-danger">
                             <div class="card-body text-center">
                                 <div class="display-6 mb-2 text-danger">MZ</div>
@@ -199,11 +189,10 @@ class GroceryCrudDemo extends Controller
                                     </tbody>
                                 </table>
                                 <p class="text-muted small mt-2 mb-0">
-                                    <strong>5 Themes Available:</strong>
+                                    <strong>4 Themes Available:</strong>
                                     <a href="/grocery-crud-demo/theme-demo/bootstrap5" class="text-decoration-none">Bootstrap 5</a> ·
                                     <a href="/grocery-crud-demo/theme-demo/adminlte4" class="text-decoration-none">AdminLTE 4</a> ·
                                     <a href="/grocery-crud-demo/theme-demo/tailwind" class="text-decoration-none">Tailwind CSS</a> ·
-                                    <a href="/grocery-crud-demo/theme-demo/bulma" class="text-decoration-none">Bulma</a> ·
                                     <a href="/grocery-crud-demo/theme-demo/materialize" class="text-decoration-none">Materialize</a>
                                 </p>
                             </div>
@@ -470,13 +459,13 @@ HTML;
     /**
      * Theme Demo - Renders a CRUD with the specified theme.
      *
-     * @param string $theme Theme name (bootstrap5, adminlte4, tailwind, bulma, materialize)
+     * @param string $theme Theme name (bootstrap5, adminlte4, tailwind, materialize)
      *
      * @return ResponseInterface|string
      */
     public function themeDemo(string $theme): ResponseInterface|string
     {
-        $allowedThemes = ['bootstrap5', 'adminlte4', 'tailwind', 'bulma', 'materialize'];
+        $allowedThemes = ['bootstrap5', 'adminlte4', 'tailwind', 'materialize'];
         if (!in_array($theme, $allowedThemes)) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
