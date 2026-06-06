@@ -269,7 +269,7 @@ HTML;
         ], 'json');
 
         // ======== Theme ========
-        $crud->setTheme('adminlte4');
+        $crud->setTheme('bootstrap5');
 
         // ======== Render ========
         return $crud->render();

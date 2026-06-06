@@ -15,3 +15,25 @@ $routes->group('grocery-crud-demo', static function ($routes): void {
     $routes->post('categories',         'GroceryCrudDemo::categories');
     $routes->post('tags',               'GroceryCrudDemo::tags');
 });
+
+// Image CRUD Demo Routes
+$routes->group('image-crud-demo', static function ($routes): void {
+    $routes->get('/',                       'ImageCrudDemo::index');
+    $routes->get('simple',                  'ImageCrudDemo::simple');
+    $routes->get('ordering',                'ImageCrudDemo::ordering');
+    $routes->get('relation',                'ImageCrudDemo::relation');
+    $routes->get('title',                   'ImageCrudDemo::title');
+    $routes->post('simple',                 'ImageCrudDemo::simple');
+    $routes->post('ordering',               'ImageCrudDemo::ordering');
+    $routes->post('relation',               'ImageCrudDemo::relation');
+    $routes->post('title',                  'ImageCrudDemo::title');
+    // Catch-all for any additional segments (ajax_list, upload_file, delete_file, etc.)
+    $routes->get('simple/(:any)',           'ImageCrudDemo::simple/$1');
+    $routes->post('simple/(:any)',          'ImageCrudDemo::simple/$1');
+    $routes->get('ordering/(:any)',         'ImageCrudDemo::ordering/$1');
+    $routes->post('ordering/(:any)',        'ImageCrudDemo::ordering/$1');
+    $routes->get('relation/(:any)',         'ImageCrudDemo::relation/$1');
+    $routes->post('relation/(:any)',        'ImageCrudDemo::relation/$1');
+    $routes->get('title/(:any)',            'ImageCrudDemo::title/$1');
+    $routes->post('title/(:any)',           'ImageCrudDemo::title/$1');
+});
