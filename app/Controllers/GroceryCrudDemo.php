@@ -106,6 +106,62 @@ class GroceryCrudDemo extends Controller
                     </div>
                 </div>
 
+                <!-- ======== Theme Demos ======== -->
+                <h2 class="h3 mt-5 mb-3 fw-bold">Theme Demos</h2>
+                <p class="text-muted mb-4">See the same CRUD rendered with different themes.</p>
+                <div class="row g-4">
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-primary">
+                            <div class="card-body text-center">
+                                <div class="display-6 mb-2 text-primary">B5</div>
+                                <h5 class="card-title">Bootstrap 5</h5>
+                                <p class="card-text text-muted small">Default Bootstrap 5 theme with clean, modern design.</p>
+                                <a href="/grocery-crud-demo/theme-demo/bootstrap5" class="btn btn-primary w-100">Open Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-info">
+                            <div class="card-body text-center">
+                                <div class="display-6 mb-2 text-info">AL</div>
+                                <h5 class="card-title">AdminLTE 4</h5>
+                                <p class="card-text text-muted small">Admin dashboard theme with sidebar and dark mode.</p>
+                                <a href="/grocery-crud-demo/theme-demo/adminlte4" class="btn btn-info w-100 text-white">Open Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-success">
+                            <div class="card-body text-center">
+                                <div class="display-6 mb-2 text-success">TW</div>
+                                <h5 class="card-title">Tailwind CSS</h5>
+                                <p class="card-text text-muted small">Utility-first CSS framework with modern look.</p>
+                                <a href="/grocery-crud-demo/theme-demo/tailwind" class="btn btn-success w-100">Open Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-warning">
+                            <div class="card-body text-center">
+                                <div class="display-6 mb-2 text-warning">BM</div>
+                                <h5 class="card-title">Bulma</h5>
+                                <p class="card-text text-muted small">Flexbox-based CSS framework with elegant design.</p>
+                                <a href="/grocery-crud-demo/theme-demo/bulma" class="btn btn-warning w-100 text-white">Open Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-danger">
+                            <div class="card-body text-center">
+                                <div class="display-6 mb-2 text-danger">MZ</div>
+                                <h5 class="card-title">Materialize</h5>
+                                <p class="card-text text-muted small">Material Design CSS framework with smooth animations.</p>
+                                <a href="/grocery-crud-demo/theme-demo/materialize" class="btn btn-danger w-100">Open Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mt-4">
                     <div class="col">
                         <div class="card shadow-sm">
@@ -142,6 +198,14 @@ class GroceryCrudDemo extends Controller
                                         <tr><td>AdminLTE 4 Theme</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                     </tbody>
                                 </table>
+                                <p class="text-muted small mt-2 mb-0">
+                                    <strong>5 Themes Available:</strong>
+                                    <a href="/grocery-crud-demo/theme-demo/bootstrap5" class="text-decoration-none">Bootstrap 5</a> ·
+                                    <a href="/grocery-crud-demo/theme-demo/adminlte4" class="text-decoration-none">AdminLTE 4</a> ·
+                                    <a href="/grocery-crud-demo/theme-demo/tailwind" class="text-decoration-none">Tailwind CSS</a> ·
+                                    <a href="/grocery-crud-demo/theme-demo/bulma" class="text-decoration-none">Bulma</a> ·
+                                    <a href="/grocery-crud-demo/theme-demo/materialize" class="text-decoration-none">Materialize</a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -399,6 +463,82 @@ HTML;
         $crud->setLanguage('indonesian');
 
         $crud->orderBy('name', 'ASC');
+
+        return $crud->render();
+    }
+
+    /**
+     * Theme Demo - Renders a CRUD with the specified theme.
+     *
+     * @param string $theme Theme name (bootstrap5, adminlte4, tailwind, bulma, materialize)
+     *
+     * @return ResponseInterface|string
+     */
+    public function themeDemo(string $theme): ResponseInterface|string
+    {
+        $allowedThemes = ['bootstrap5', 'adminlte4', 'tailwind', 'bulma', 'materialize'];
+        if (!in_array($theme, $allowedThemes)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $crud = new GroceryCrud();
+        $crud->setTable('products', 'Products (' . ucfirst($theme) . ' Theme)');
+
+        // ======== Columns ========
+        $crud->setColumns('name', 'category_id', 'price', 'stock', 'is_active', 'created_at');
+        $crud->setFields('name', 'category_id', 'description', 'price', 'stock', 'is_active');
+
+        // ======== Display labels ========
+        $crud->displayAs('name', 'Product Name');
+        $crud->displayAs('category_id', 'Category');
+        $crud->displayAs('is_active', 'Active');
+        $crud->displayAs('price', 'Price (Rp)');
+
+        // ======== Active field as dropdown ========
+        $crud->setFieldType('is_active', 'dropdown', ['1' => 'Active', '0' => 'Inactive']);
+
+        // ======== Relation to categories (belongs_to) ========
+        $crud->setRelation('category_id', 'categories', 'name', "status = 'active'", 'name ASC');
+
+        // ======== Validation ========
+        $crud->required('name');
+        $crud->required('price');
+        $crud->unique('name');
+
+        // ======== Column callbacks ========
+        $crud->callbackColumn('price', function ($value, $row) {
+            return 'Rp ' . number_format((float) $value, 0, ',', '.');
+        });
+        $crud->callbackColumn('is_active', function ($value, $row) {
+            if ($value == 1) {
+                return '<span class="badge bg-success">Active</span>';
+            }
+            return '<span class="badge bg-secondary">Inactive</span>';
+        });
+
+        // ======== Column Filters ========
+        $crud->setColumnFilter('name', 'text');
+        $crud->setColumnFilter('is_active', 'dropdown', ['1' => 'Active', '0' => 'Inactive']);
+        $crud->setColumnFilterRelation('category_id', 'categories', 'name', 'id', "status = 'active'", 'name ASC');
+
+        // ======== Batch Actions ========
+        $crud->setBatchAction('delete_selected', 'Delete Selected');
+        $crud->setBatchAction('restore_selected', 'Restore Selected');
+
+        // ======== Sub-Grid: product variants ========
+        $crud->setSubGrid(
+            'variants',
+            'product_variants',
+            'product_id',
+            ['name', 'price', 'stock', 'sku'],
+            ['name' => 'Variant', 'price' => 'Price', 'stock' => 'Stock', 'sku' => 'SKU']
+        );
+
+        // ======== Soft Delete ========
+        $crud->setSoftDelete();
+
+        // ======== Theme ========
+        $crud->setTheme($theme);
 
         return $crud->render();
     }

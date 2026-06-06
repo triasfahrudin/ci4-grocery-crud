@@ -16,6 +16,12 @@ $routes->group('grocery-crud-demo', static function ($routes): void {
     $routes->post('categories',         'GroceryCrudDemo::categories');
     $routes->post('tags',               'GroceryCrudDemo::tags');
     $routes->post('variants',           'GroceryCrudDemo::variants');
+    // Theme Demo Routes
+    $routes->get('theme-demo/(:segment)',           'GroceryCrudDemo::themeDemo/$1');
+    $routes->post('theme-demo/(:segment)',          'GroceryCrudDemo::themeDemo/$1');
+    $routes->get('theme-demo/(:segment)/(:any)',    'GroceryCrudDemo::themeDemo/$1/$2');
+    $routes->post('theme-demo/(:segment)/(:any)',   'GroceryCrudDemo::themeDemo/$1/$2');
+
     // Catch-all for AJAX actions (ajax_list, ajax_restore, ajax_trash_list, ajax_sub_grid, etc.)
     $routes->get('products/(:any)',     'GroceryCrudDemo::products/$1');
     $routes->post('products/(:any)',    'GroceryCrudDemo::products/$1');
