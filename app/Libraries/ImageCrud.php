@@ -598,6 +598,28 @@ class ImageCrud
             return '';
         }
 
+        // Try to find the actual controller/method base using router info
+        // This strips any action segments (ajax_list, upload_file, etc.) from the URL
+        try {
+            $router = service('router');
+            $methodName = $router->methodName();
+
+            // Find the method name in segments and return only up to that point
+            $methodIdx = false;
+            foreach ($segments as $i => $seg) {
+                if ($seg === $methodName) {
+                    $methodIdx = $i;
+                    break;
+                }
+            }
+
+            if ($methodIdx !== false) {
+                return implode('/', array_slice($segments, 0, $methodIdx + 1));
+            }
+        } catch (\Throwable) {
+            // Fall through
+        }
+
         return implode('/', $segments);
     }
 
