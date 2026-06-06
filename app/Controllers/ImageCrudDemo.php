@@ -163,13 +163,13 @@ HTML;
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Image CRUD Gallery</title>
             {$cssLinks}
+            {$jsLinks}
         </head>
         <body>
             <div style="padding:20px;">
                 <a href="/image-crud-demo" style="display:inline-block;margin-bottom:15px;">&laquo; Back to Menu</a>
                 {$crudOutput->output}
             </div>
-            {$jsLinks}
         </body>
         </html>
 HTML;
