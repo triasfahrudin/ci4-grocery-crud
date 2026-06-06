@@ -271,6 +271,9 @@ HTML;
         // ======== Theme ========
         $crud->setTheme('bootstrap5');
 
+        // ======== Soft Delete ========
+        $crud->setSoftDelete();
+
         // ======== Render ========
         return $crud->render();
     }
