@@ -32,6 +32,7 @@ class ImageCrud
     protected ?string $relationField = null;
     protected string $subject = 'Record';
     protected string $imagePath = '';
+    protected string $imageUrlPath = '';
     protected string $primaryKey = 'id';
     protected string $thumbnailPrefix = 'thumb__';
     protected string $viewsAsString = '';
@@ -144,10 +145,29 @@ class ImageCrud
 
     /**
      * Set the image upload path (relative to FCPATH or absolute).
+     *
+     * Also computes a URL-relative path for generating image URLs.
      */
     public function setImagePath(string $imagePath): self
     {
         $this->imagePath = $imagePath;
+
+        // Compute URL-relative path for use with base_url()
+        if (str_starts_with($imagePath, FCPATH)) {
+            $this->imageUrlPath = substr($imagePath, strlen(FCPATH));
+        } elseif (str_starts_with($imagePath, '/')) {
+            // Absolute path outside FCPATH — try ROOTPATH
+            if (str_starts_with($imagePath, ROOTPATH)) {
+                $this->imageUrlPath = 'public/' . substr($imagePath, strlen(ROOTPATH));
+            } else {
+                $this->imageUrlPath = $imagePath;
+            }
+        } else {
+            // Already relative
+            $this->imageUrlPath = $imagePath;
+        }
+        $this->imageUrlPath = trim($this->imageUrlPath, '/');
+
         return $this;
     }
 
@@ -347,7 +367,7 @@ class ImageCrud
         $options = [
             'upload_dir'       => $uploadPath,
             'param_name'       => 'qqfile',
-            'upload_url'       => base_url($uploadDir) . '/',
+            'upload_url'       => base_url($this->imageUrlPath) . '/',
             'accept_file_types' => $regExp,
         ];
 
@@ -780,8 +800,8 @@ class ImageCrud
                 $this->createThumbnail($sourcePath, $thumbPath);
             }
 
-            $row->image_url     = base_url($this->imagePath . '/' . rawurlencode($imageFilename));
-            $row->thumbnail_url = base_url($this->imagePath . '/' . rawurlencode($this->thumbnailPrefix . $imageFilename));
+            $row->image_url     = base_url($this->imageUrlPath . '/' . rawurlencode($imageFilename));
+            $row->thumbnail_url = base_url($this->imageUrlPath . '/' . rawurlencode($this->thumbnailPrefix . $imageFilename));
             $row->delete_url    = $this->getDeleteUrl($row->{$this->primaryKey});
 
             $finalResults[] = $row;
