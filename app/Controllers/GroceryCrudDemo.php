@@ -26,6 +26,8 @@ use GroceryCrud\GroceryCrud;
  * - Repeater Fields (Nova-style repeatable groups)
  * - AdminLTE 4 Theme
  * - Indonesian language
+ * - Soft Delete
+ * - Sub-Grid (expandable nested related records)
  *
  * Usage:
  *   1. Run migration: php spark migrate -n App
@@ -91,6 +93,17 @@ class GroceryCrudDemo extends Controller
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-diagram-2 me-2 text-info"></i>Variants
+                                </h5>
+                                <p class="card-text text-muted small">Sub-Grid demo with expandable nested variant table.</p>
+                                <a href="/grocery-crud-demo/variants" class="btn btn-info text-white">Open</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row mt-4">
@@ -105,25 +118,28 @@ class GroceryCrudDemo extends Controller
                                             <th>Products</th>
                                             <th>Categories</th>
                                             <th>Tags</th>
+                                            <th>Variants</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>Basic CRUD</td><td>✓</td><td>✓</td><td>✓</td></tr>
-                                        <tr><td>Belongs_to Relation</td><td>✓</td><td>-</td><td>-</td></tr>
-                                        <tr><td>N-to-N Relation</td><td>✓</td><td>-</td><td>-</td></tr>
-                                        <tr><td>Callbacks</td><td>✓</td><td>-</td><td>-</td></tr>
-                                        <tr><td>Validation</td><td>✓</td><td>✓</td><td>-</td></tr>
-                                        <tr><td>File Upload</td><td>✓</td><td>-</td><td>-</td></tr>
-                                        <tr><td>Custom Actions</td><td>-</td><td>✓</td><td>-</td></tr>
-                                        <tr><td>Export</td><td>✓</td><td>✓</td><td>✓</td></tr>
-                                        <tr><td>Search</td><td>✓</td><td>✓</td><td>✓</td></tr>
-                                        <tr><td>Field Type Override</td><td>✓</td><td>-</td><td>✓</td></tr>
-                                        <tr><td>Column Filters</td><td>✓</td><td>✓</td><td>✓</td></tr>
-                                        <tr><td>Batch Actions</td><td>✓</td><td>✓</td><td>-</td></tr>
-                                        <tr><td>Sort by Headers</td><td>✓</td><td>✓</td><td>✓</td></tr>
-                                        <tr><td>Image Viewer</td><td>✓</td><td>-</td><td>-</td></tr>
-                                        <tr><td>Repeater Fields</td><td>✓</td><td>-</td><td>-</td></tr>
-                                        <tr><td>AdminLTE 4 Theme</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Basic CRUD</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Belongs_to Relation</td><td>✓</td><td>-</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>N-to-N Relation</td><td>✓</td><td>-</td><td>-</td><td>-</td></tr>
+                                        <tr><td>Callbacks</td><td>✓</td><td>-</td><td>-</td><td>-</td></tr>
+                                        <tr><td>Validation</td><td>✓</td><td>✓</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>File Upload</td><td>✓</td><td>-</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>Custom Actions</td><td>-</td><td>✓</td><td>-</td><td>-</td></tr>
+                                        <tr><td>Export</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Search</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Field Type Override</td><td>✓</td><td>-</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Column Filters</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Batch Actions</td><td>✓</td><td>✓</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>Sort by Headers</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Image Viewer</td><td>✓</td><td>-</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>Repeater Fields</td><td>✓</td><td>-</td><td>-</td><td>-</td></tr>
+                                        <tr><td>Sub-Grid</td><td>-</td><td>-</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>Soft Delete</td><td>✓</td><td>-</td><td>-</td><td>✓</td></tr>
+                                        <tr><td>AdminLTE 4 Theme</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -260,6 +276,7 @@ HTML;
 
         // ======== Batch Actions ========
         $crud->setBatchAction('delete_selected', 'Delete Selected');
+        $crud->setBatchAction('restore_selected', 'Restore Selected');
 
         // ======== Repeater (Nova-style repeatable groups) ========
         // JSON preset — stores data as JSON in the `specs` column
@@ -382,6 +399,92 @@ HTML;
         $crud->setLanguage('indonesian');
 
         $crud->orderBy('name', 'ASC');
+
+        return $crud->render();
+    }
+
+    /**
+     * Product Variants CRUD - Sub-Grid demo.
+     *
+     * Shows products with expandable sub-grid of their variants.
+     * Demonstrates:
+     * - setSubGrid (nested related records in expandable rows)
+     * - setRelation (category_id)
+     * - setUpload (image)
+     * - Soft Delete
+     */
+    public function variants(): ResponseInterface|string
+    {
+        $crud = new GroceryCrud();
+        $crud->setTable('products', 'Products with Variants');
+
+        // ======== Columns ========
+        $crud->setColumns('name', 'category_id', 'price', 'stock', 'is_active', 'image');
+        $crud->setFields('name', 'category_id', 'description', 'price', 'stock', 'is_active', 'image');
+
+        // ======== Display labels ========
+        $crud->displayAs('name', 'Product Name');
+        $crud->displayAs('category_id', 'Category');
+        $crud->displayAs('is_active', 'Active');
+        $crud->displayAs('stock', 'Stock Quantity');
+
+        // ======== Active field as dropdown ========
+        $crud->setFieldType('is_active', 'dropdown', ['1' => 'Active', '0' => 'Inactive']);
+
+        // ======== Relation to categories ========
+        $crud->setRelation('category_id', 'categories', 'name', "status = 'active'", 'name ASC');
+
+        // ======== File upload ========
+        $crud->setUpload('image', [
+            'allowedTypes' => 'jpg|jpeg|png|gif|webp',
+            'maxSize'      => 1024,
+            'encryptFileName' => true,
+        ]);
+
+        // ======== Validation ========
+        $crud->required('name');
+        $crud->unique('name');
+
+        // ======== Sub-Grid: product variants ========
+        $crud->setSubGrid(
+            'variants',          // field identifier
+            'product_variants',   // related table
+            'product_id',         // FK in related table
+            ['name', 'price', 'stock', 'sku'], // columns to show
+            ['name' => 'Variant', 'price' => 'Price', 'stock' => 'Stock', 'sku' => 'SKU'] // labels
+        );
+
+        // ======== Sub-Grid: product tags (NtoN) ========
+        $crud->setSubGrid(
+            'tags',
+            'product_tags',
+            'product_id',
+            ['tag_id'],
+            ['tag_id' => 'Tag'],
+            ['tag_id' => ['tags', 'name', 'tag_id', 'id']] // resolve tag_id → tag name
+        );
+
+        // ======== Image viewer ========
+        $crud->callbackColumn('image', function ($value, $row) {
+            if (empty($value)) {
+                return '<span class="text-muted">—</span>';
+            }
+            return '<img src="/uploads/image/' . $value . '" class="gc-thumb" alt="">';
+        });
+
+        // ======== Active status badge ========
+        $crud->callbackColumn('is_active', function ($value, $row) {
+            if ($value == '1') {
+                return '<span class="badge bg-success">Active</span>';
+            }
+            return '<span class="badge bg-secondary">Inactive</span>';
+        });
+
+        // ======== Theme ========
+        $crud->setTheme('bootstrap5');
+
+        // ======== Soft Delete ========
+        $crud->setSoftDelete();
 
         return $crud->render();
     }
