@@ -3,10 +3,18 @@
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
+
+// Auth Routes (no filter)
+$routes->get('auth/login',  'Auth::login');
+$routes->post('auth/login', 'Auth::login');
+$routes->get('auth/logout', 'Auth::logout');
+$routes->get('auth/profile', 'Auth::profile', ['filter' => 'auth']);
+
+// Home
 $routes->get('/', 'Home::index');
 
-// Grocery CRUD Demo Routes
-$routes->group('grocery-crud-demo', static function ($routes): void {
+// Grocery CRUD Demo Routes (protected by auth filter)
+$routes->group('grocery-crud-demo', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/',                   'GroceryCrudDemo::index');
     $routes->get('products',            'GroceryCrudDemo::products');
     $routes->get('categories',          'GroceryCrudDemo::categories');
@@ -33,8 +41,8 @@ $routes->group('grocery-crud-demo', static function ($routes): void {
     $routes->post('variants/(:any)',    'GroceryCrudDemo::variants/$1');
 });
 
-// Image CRUD Demo Routes
-$routes->group('image-crud-demo', static function ($routes): void {
+// Image CRUD Demo Routes (protected by auth filter)
+$routes->group('image-crud-demo', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/',                       'ImageCrudDemo::index');
     $routes->get('simple',                  'ImageCrudDemo::simple');
     $routes->get('ordering',                'ImageCrudDemo::ordering');

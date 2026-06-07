@@ -37,25 +37,107 @@ use GroceryCrud\GroceryCrud;
 class GroceryCrudDemo extends Controller
 {
     /**
+     * Apply RBAC permissions from the database to a GroceryCrud instance.
+     *
+     * Reads the current user's role from session, fetches permissions
+     * from the `permissions` table, and applies them via setPermission().
+     *
+     * @param \GroceryCrud\GroceryCrud $crud
+     * @param string $tableName Table name to look up permissions for
+     */
+    private function applyRbac(\GroceryCrud\GroceryCrud $crud, string $tableName): void
+    {
+        $role = session()->get('role', 'viewer');
+
+        // Load permissions from database
+        $permModel = model('App\Models\PermissionModel');
+        $allowedActions = $permModel->getAllowedActions($role, $tableName);
+
+        if (!empty($allowedActions)) {
+            // Set the permission callback so GroceryCrud knows which role
+            $crud->setPermissionCallback(function () use ($role) {
+                return $role;
+            });
+
+            // Define which actions are allowed for this role & table
+            $crud->setPermission($role, $allowedActions);
+        }
+    }
+
+    /**
+     * Get the navbar HTML with user info and logout button.
+     */
+    private function renderNavbar(): string
+    {
+        $role = session()->get('role', 'viewer');
+        $fullName = session()->get('fullName') ?: session()->get('username');
+        $badgeClass = match ($role) {
+            'admin'  => 'bg-danger',
+            'editor' => 'bg-warning text-dark',
+            default  => 'bg-secondary',
+        };
+
+        return '
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="/grocery-crud-demo">
+                    <i class="bi bi-grid me-2"></i>Grocery CRUD <small class="fw-light">RBAC Demo</small>
+                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-light small">
+                        <i class="bi bi-person-circle me-1"></i>'
+                        . htmlspecialchars($fullName) .
+                        ' <span class="badge ' . $badgeClass . ' ms-1">' . ucfirst($role) . '</span>
+                    </span>
+                    <a href="/auth/profile" class="btn btn-outline-light btn-sm" title="Profile">
+                        <i class="bi bi-person-vcard"></i>
+                    </a>
+                    <a href="/auth/logout" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-box-arrow-right me-1"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </nav>';
+    }
+
+    /**
      * Main index - shows a menu of demo options.
      */
     public function index(): string
     {
+        $role = session()->get('role', 'viewer');
+        $roleBadge = match ($role) {
+            'admin'  => '<span class="badge bg-danger">Admin</span>',
+            'editor' => '<span class="badge bg-warning text-dark">Editor</span>',
+            default  => '<span class="badge bg-secondary">Viewer</span>',
+        };
+
+        $permNotes = match ($role) {
+            'admin'  => '<span class="text-danger fw-semibold">Full access:</span> add, edit, delete, view, export',
+            'editor' => '<span class="text-warning fw-semibold">Limited access:</span> add, edit, view, export (no delete)',
+            default  => '<span class="text-secondary fw-semibold">Read-only:</span> view and export only',
+        };
+
         return <<<HTML
         <!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Grocery CRUD Demo</title>
+            <title>Grocery CRUD Demo - RBAC</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         </head>
         <body>
-            <div class="container py-5">
+            {$this->renderNavbar()}
+            <div class="container py-3">
                 <div class="row mb-4">
                     <div class="col">
                         <h1 class="display-5 fw-bold">Grocery CRUD Demo</h1>
-                        <p class="text-muted">CodeIgniter 4 - Full-featured CRUD Library</p>
+                        <p class="text-muted">CodeIgniter 4 - Full-featured CRUD Library with <span class="fw-bold">Role-Based Access Control</span></p>
+                        <div class="alert alert-info py-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check fs-5"></i>
+                            <span>Your role: {$roleBadge} — {$permNotes}</span>
+                        </div>
                     </div>
                 </div>
 
@@ -186,6 +268,7 @@ class GroceryCrudDemo extends Controller
                                         <tr><td>Sub-Grid</td><td>-</td><td>-</td><td>-</td><td>✓</td></tr>
                                         <tr><td>Soft Delete</td><td>✓</td><td>-</td><td>-</td><td>✓</td></tr>
                                         <tr><td>AdminLTE 4 Theme</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>RBAC (Role-Based Access)</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                     </tbody>
                                 </table>
                                 <p class="text-muted small mt-2 mb-0">
@@ -203,7 +286,7 @@ class GroceryCrudDemo extends Controller
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         </body>
         </html>
-HTML;
+        HTML;
     }
 
     /**
@@ -344,6 +427,9 @@ HTML;
         // ======== Soft Delete ========
         $crud->setSoftDelete();
 
+        // ======== RBAC ========
+        $this->applyRbac($crud, 'products');
+
         // ======== Render ========
         return $crud->render();
     }
@@ -394,6 +480,9 @@ HTML;
 
         // Set language
         $crud->setLanguage('indonesian');
+
+        // RBAC
+        $this->applyRbac($crud, 'categories');
 
         return $crud->render();
     }
@@ -452,6 +541,9 @@ HTML;
         $crud->setLanguage('indonesian');
 
         $crud->orderBy('name', 'ASC');
+
+        // RBAC
+        $this->applyRbac($crud, 'tags');
 
         return $crud->render();
     }
@@ -525,6 +617,9 @@ HTML;
 
         // ======== Soft Delete ========
         $crud->setSoftDelete();
+
+        // ======== RBAC ========
+        $this->applyRbac($crud, 'products');
 
         // ======== Theme ========
         $crud->setTheme($theme);
@@ -614,6 +709,9 @@ HTML;
 
         // ======== Soft Delete ========
         $crud->setSoftDelete();
+
+        // RBAC
+        $this->applyRbac($crud, 'product_variants');
 
         return $crud->render();
     }
