@@ -179,10 +179,14 @@ class DependsOnDemo extends Controller
 
         // ─── Column Display ──────────────────────────────────
         $crud->callbackColumn('has_discount', function ($value) {
-            return $value ? 'Yes' : 'No';
+            return $value == 1
+                ? '<span class="badge bg-success">Yes</span>'
+                : '<span class="badge bg-secondary">No</span>';
         });
         $crud->callbackColumn('requires_shipping', function ($value) {
-            return $value ? 'Yes' : 'No';
+            return $value == 1
+                ? '<span class="badge bg-success">Yes</span>'
+                : '<span class="badge bg-secondary">No</span>';
         });
 
         // ─── Dynamic Form Conditions (dependsOn) ─────────────
