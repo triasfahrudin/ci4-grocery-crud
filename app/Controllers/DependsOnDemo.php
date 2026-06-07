@@ -100,16 +100,16 @@ class DependsOnDemo extends Controller
                     </div>
                     <div class="card-body">
                         <pre class="bg-dark text-light p-3 rounded mb-0"><code>// Sembunyikan discount_price jika has_discount tidak dicentang
-$crud->dependsOn('discount_price', 'has_discount', true);
+                        $crud->dependsOn('discount_price', 'has_discount', true);
 
-// Sembunyikan discount_percent jika has_discount tidak dicentang
-$crud->dependsOn('discount_percent', 'has_discount', true);
+                        // Sembunyikan discount_percent jika has_discount tidak dicentang
+                        $crud->dependsOn('discount_percent', 'has_discount', true);
 
-// Nonaktifkan shipping_weight jika requires_shipping tidak dicentang
-$crud->dependsOn('shipping_weight', 'requires_shipping', true, 'enable');
+                        // Nonaktifkan shipping_weight jika requires_shipping tidak dicentang
+                        $crud->dependsOn('shipping_weight', 'requires_shipping', true, 'enable');
 
-// Nonaktifkan shipping_notes jika requires_shipping tidak dicentang
-$crud->dependsOn('shipping_notes', 'requires_shipping', true, 'enable');</code></pre>
+                        // Nonaktifkan shipping_notes jika requires_shipping tidak dicentang
+                        $crud->dependsOn('shipping_notes', 'requires_shipping', true, 'enable');</code></pre>
                     </div>
                 </div>
 
