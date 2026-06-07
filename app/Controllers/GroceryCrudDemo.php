@@ -165,6 +165,17 @@ class GroceryCrudDemo extends Controller
                         </div>
                     </div>
                     <div class="col-md-4">
+                        <div class="card h-100 shadow-sm border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-toggle-on me-2 text-info"></i>Depends On
+                                </h5>
+                                <p class="card-text text-muted small">Dynamic Form Conditions: show/hide &amp; enable/disable field berdasarkan nilai field lain.</p>
+                                <a href="/depends-on-demo" class="btn btn-info text-white">Open</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">

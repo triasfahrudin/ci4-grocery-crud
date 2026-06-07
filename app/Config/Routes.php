@@ -41,6 +41,16 @@ $routes->group('grocery-crud-demo', ['filter' => 'auth'], static function ($rout
     $routes->post('variants/(:any)',    'GroceryCrudDemo::variants/$1');
 });
 
+// DependsOn Demo Routes (protected by auth filter)
+$routes->group('depends-on-demo', ['filter' => 'auth'], static function ($routes): void {
+    $routes->get('/',                   'DependsOnDemo::index');
+    $routes->get('products',            'DependsOnDemo::products');
+    $routes->post('products',           'DependsOnDemo::products');
+    // Catch-all for AJAX actions
+    $routes->get('products/(:any)',     'DependsOnDemo::products/$1');
+    $routes->post('products/(:any)',    'DependsOnDemo::products/$1');
+});
+
 // Image CRUD Demo Routes (protected by auth filter)
 $routes->group('image-crud-demo', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/',                       'ImageCrudDemo::index');
