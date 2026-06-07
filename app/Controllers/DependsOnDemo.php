@@ -177,6 +177,14 @@ class DependsOnDemo extends Controller
         $crud->setFieldType('is_active', 'true_false');
         $crud->setFieldType('discount_percent', 'integer');
 
+        // ─── Column Display ──────────────────────────────────
+        $crud->callbackColumn('has_discount', function ($value) {
+            return $value ? 'Yes' : 'No';
+        });
+        $crud->callbackColumn('requires_shipping', function ($value) {
+            return $value ? 'Yes' : 'No';
+        });
+
         // ─── Dynamic Form Conditions (dependsOn) ─────────────
         //
         // ACTION 'show': Sembunyikan field jika kondisi tidak terpenuhi
