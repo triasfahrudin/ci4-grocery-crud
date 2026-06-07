@@ -27,7 +27,7 @@ class DependsOnDemo extends Controller
      */
     public function index(): string
     {
-        return <<<HTML
+        return <<<'HTML'
         <!DOCTYPE html>
         <html lang="en">
         <head>
