@@ -227,6 +227,11 @@ class DependsOnDemo extends Controller
         $crud->setColumnFilter('name', 'text');
         $crud->setColumnFilter('is_active', 'dropdown', ['1' => 'Active', '0' => 'Inactive']);
 
+        // ─── Import CSV/Excel ────────────────────────────────
+        $crud->setImportable();
+        // Note: XLSX import requires `composer require phpoffice/phpspreadsheet`
+        // CSV import works out of the box
+
         // ─── Theme ──────────────────────────────────────────
         $crud->setTheme('bootstrap5');
 
