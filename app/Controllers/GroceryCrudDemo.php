@@ -338,6 +338,11 @@ class GroceryCrudDemo extends Controller
         // ======== Relation to categories (belongs_to) ========
         $crud->setRelation('category_id', 'categories', 'name', "status = 'active'", 'name ASC');
 
+        // ======== Inline Editing ========
+        // Enable double-click to edit on the table
+        $crud->setInlineEditing(true);
+        $crud->setInlineEditColumns(['name', 'price', 'stock', 'is_active', 'category_id']);
+
         // ======== N-to-N relation with tags ========
         $crud->setRelationNtoN(
             'tags',           // field name in form
