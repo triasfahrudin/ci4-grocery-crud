@@ -357,6 +357,9 @@ class GroceryCrudDemo extends Controller
         // ======== Active field as combobox dropdown ========
         $crud->setFieldType('is_active', 'dropdown', ['1' => 'Active', '0' => 'Inactive']);
 
+        // ======== Description as WYSIWYG richtext editor ========
+        $crud->setFieldType('description', 'richtext');
+
         // ======== Relation to categories (belongs_to) ========
         $crud->setRelation('category_id', 'categories', 'name', "status = 'active'", 'name ASC');
 
