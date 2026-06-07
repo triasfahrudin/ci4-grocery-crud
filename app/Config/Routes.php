@@ -51,6 +51,16 @@ $routes->group('depends-on-demo', ['filter' => 'auth'], static function ($routes
     $routes->post('products/(:any)',    'DependsOnDemo::products/$1');
 });
 
+// Import Demo Routes (protected by auth filter)
+$routes->group('import-demo', ['filter' => 'auth'], static function ($routes): void {
+    $routes->get('/',                   'ImportDemo::index');
+    $routes->get('contacts',            'ImportDemo::contacts');
+    $routes->post('contacts',           'ImportDemo::contacts');
+    // Catch-all for AJAX actions
+    $routes->get('contacts/(:any)',     'ImportDemo::contacts/$1');
+    $routes->post('contacts/(:any)',    'ImportDemo::contacts/$1');
+});
+
 // Image CRUD Demo Routes (protected by auth filter)
 $routes->group('image-crud-demo', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/',                       'ImageCrudDemo::index');

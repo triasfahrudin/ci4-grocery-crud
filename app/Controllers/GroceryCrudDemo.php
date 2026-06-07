@@ -154,6 +154,17 @@ class GroceryCrudDemo extends Controller
                         </div>
                     </div>
                     <div class="col-md-4">
+                        <div class="card h-100 shadow-sm border-success">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-upload me-2 text-success"></i>Import Demo
+                                </h5>
+                                <p class="card-text text-muted small">CSV/Excel Import: upload file, auto-mapping kolom, preview, lalu import data.</p>
+                                <a href="/import-demo" class="btn btn-success">Open</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">
