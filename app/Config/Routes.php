@@ -61,6 +61,24 @@ $routes->group('import-demo', ['filter' => 'auth'], static function ($routes): v
     $routes->post('contacts/(:any)',    'ImportDemo::contacts/$1');
 });
 
+// REST API Demo Routes (protected by auth filter)
+// Uses $routes->add() so it matches any HTTP method (GET, POST, PUT, DELETE, PATCH)
+$routes->group('api', ['filter' => 'auth'], static function ($routes): void {
+    $routes->add('contacts',        'ApiDemo::contacts');
+    $routes->add('contacts/(:any)', 'ApiDemo::contacts/$1');
+});
+
+// Activity Log Demo Routes (protected by auth filter)
+$routes->group('activity-log-demo', ['filter' => 'auth'], static function ($routes): void {
+    $routes->get('/',                       'ActivityLogDemo::index');
+    $routes->get('categories',              'ActivityLogDemo::categories');
+    $routes->post('categories',             'ActivityLogDemo::categories');
+    $routes->get('logs',                    'ActivityLogDemo::logs');
+    // Catch-all for AJAX actions
+    $routes->get('categories/(:any)',       'ActivityLogDemo::categories/$1');
+    $routes->post('categories/(:any)',      'ActivityLogDemo::categories/$1');
+});
+
 // Image CRUD Demo Routes (protected by auth filter)
 $routes->group('image-crud-demo', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/',                       'ImageCrudDemo::index');

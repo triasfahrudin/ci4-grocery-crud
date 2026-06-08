@@ -208,6 +208,17 @@ class GroceryCrudDemo extends Controller
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm border-danger">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-journal-text me-2 text-danger"></i>Activity Log
+                                </h5>
+                                <p class="card-text text-muted small">Audit Trail demo — auto-record Insert, Update, Delete, Restore with old/new data diff.</p>
+                                <a href="/activity-log-demo" class="btn btn-danger">Open</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ======== Theme Demos ======== -->
@@ -291,6 +302,7 @@ class GroceryCrudDemo extends Controller
                                         <tr><td>Soft Delete</td><td>✓</td><td>-</td><td>-</td><td>✓</td></tr>
                                         <tr><td>AdminLTE 4 Theme</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                         <tr><td>RBAC (Role-Based Access)</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td>Activity Log / Audit Trail</td><td>✓</td><td>✓</td><td>-</td><td>-</td></tr>
                                     </tbody>
                                 </table>
                                 <p class="text-muted small mt-2 mb-0">
