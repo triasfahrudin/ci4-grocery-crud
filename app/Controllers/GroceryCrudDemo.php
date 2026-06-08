@@ -320,6 +320,13 @@ class GroceryCrudDemo extends Controller
                                         <tr><td>AdminLTE 4 Theme</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                         <tr><td>RBAC (Role-Based Access)</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                         <tr><td>Activity Log / Audit Trail</td><td>✓</td><td>✓</td><td>-</td><td>-</td></tr>
+                                        <tr><td><strong>Calendar View</strong></td><td>✓</td><td>-</td><td>-</td><td>-</td></tr>
+                                        <tr><td><strong>Field Groups / Tabs</strong></td><td>✓</td><td>-</td><td>-</td><td>-</td></tr>
+                                        <tr><td><strong>Relation Popover</strong></td><td>✓</td><td>-</td><td>-</td><td>-</td></tr>
+                                        <tr><td><strong>Record Locking</strong></td><td>✓</td><td>-</td><td>-</td><td>-</td></tr>
+                                        <tr><td><strong>Export Selected Columns</strong></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+                                        <tr><td><strong>Activity Log Viewer</strong></td><td>-</td><td>✓</td><td>-</td><td>-</td></tr>
+                                        <tr><td><strong>Dependent Dropdown</strong></td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
                                     </tbody>
                                 </table>
                                 <p class="text-muted small mt-2 mb-0">
@@ -391,6 +398,15 @@ class GroceryCrudDemo extends Controller
 
         // ======== Relation to categories (belongs_to) ========
         $crud->setRelation('category_id', 'categories', 'name', "status = 'active'", 'name ASC');
+
+        // ======== Relation Popover (hover to preview category details) ========
+        $crud->setRelationPopover('category_id', ['name', 'description', 'status']);
+
+        // ======== Field Groups / Tabs ========
+        $crud->setFieldGroup('Basic Info', ['name', 'category_id', 'price', 'stock']);
+        $crud->setFieldGroup('Description & Media', ['description', 'image']);
+        $crud->setFieldGroup('Tags & Specifications', ['tags', 'specs']);
+        $crud->setFieldGroup('Status', ['is_active'], 'section');
 
         // ======== Inline Editing ========
         // Enable double-click to edit on the table
@@ -485,6 +501,18 @@ class GroceryCrudDemo extends Controller
 
         // ======== Soft Delete ========
         $crud->setSoftDelete();
+
+        // ======== Calendar View ========
+        $crud->setCalendarView('created_at', 'name');
+
+        // ======== Record Locking (5 minutes, auto-release on save/close) ========
+        $crud->enableRecordLocking(5);
+        $crud->setLockUserCallback(function () {
+            return [
+                'id'   => (string) session()->get('userId'),
+                'name' => session()->get('fullName') ?: session()->get('username'),
+            ];
+        });
 
         // ======== RBAC ========
         $this->applyRbac($crud, 'products');

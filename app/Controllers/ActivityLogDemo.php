@@ -251,6 +251,9 @@ $crud->setActivityLogExcludeFields([
 
         $crud->setTheme('bootstrap5');
 
+        // ======== Activity Log Viewer UI (built-in) ========
+        $crud->enableActivityLogViewer();
+
         return $crud->setPageHeader($this->renderNavbar('categories'))->render();
     }
 

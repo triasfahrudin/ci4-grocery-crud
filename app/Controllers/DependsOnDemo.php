@@ -92,36 +92,38 @@ class DependsOnDemo extends Controller
                 </div>
 
                 <div class="row g-4 mb-5">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card h-100 shadow-sm border-primary">
-                            <div class="card-body text-center py-5">
-                                <div class="display-1 text-primary mb-3">
-                                    <i class="bi bi-eye-slash"></i>
-                                </div>
-                                <h3 class="card-title">Action: <code>show</code></h3>
-                                <p class="card-text text-muted">
+                            <div class="card-body text-center py-4">
+                                <div class="display-3 text-primary mb-3"><i class="bi bi-eye-slash"></i></div>
+                                <h5>Action: <code>show</code></h5>
+                                <p class="card-text text-muted small">
                                     Field <strong>discount_price</strong> &amp; <strong>discount_percent</strong>
                                     hanya tampil saat switch <code>has_discount</code> ON.
-                                </p>
-                                <p class="small text-muted">
-                                    Saat OFF: field hilang total + <code>disabled</code> agar nilainya tidak terkirim.
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card h-100 shadow-sm border-success">
-                            <div class="card-body text-center py-5">
-                                <div class="display-1 text-success mb-3">
-                                    <i class="bi bi-unlock"></i>
-                                </div>
-                                <h3 class="card-title">Action: <code>enable</code></h3>
-                                <p class="card-text text-muted">
+                            <div class="card-body text-center py-4">
+                                <div class="display-3 text-success mb-3"><i class="bi bi-unlock"></i></div>
+                                <h5>Action: <code>enable</code></h5>
+                                <p class="card-text text-muted small">
                                     Field <strong>shipping_weight</strong> &amp; <strong>shipping_notes</strong>
                                     hanya aktif saat switch <code>requires_shipping</code> ON.
                                 </p>
-                                <p class="small text-muted">
-                                    Saat OFF: field tetap terlihat tapi <code>disabled</code> (tidak bisa diisi).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm border-warning">
+                            <div class="card-body text-center py-4">
+                                <div class="display-3 text-warning mb-3"><i class="bi bi-link-45deg"></i></div>
+                                <h5>Dependent Dropdown</h5>
+                                <p class="card-text text-muted small">
+                                    Field <strong>Category</strong> → pilih kategori, lalu <strong>Subcategory</strong>
+                                    otomatis terfilter (chained/cascading select).
                                 </p>
                             </div>
                         </div>
@@ -140,16 +142,20 @@ class DependsOnDemo extends Controller
                     </div>
                     <div class="card-body">
                         <pre class="bg-dark text-light p-3 rounded mb-0"><code>// Sembunyikan discount_price jika has_discount tidak dicentang
-                        $crud->dependsOn('discount_price', 'has_discount', true);
+                        $crud->dependsOn('discount_price', 'has_discount', true, 'show');
 
                         // Sembunyikan discount_percent jika has_discount tidak dicentang
-                        $crud->dependsOn('discount_percent', 'has_discount', true);
+                        $crud->dependsOn('discount_percent', 'has_discount', true, 'show');
 
                         // Nonaktifkan shipping_weight jika requires_shipping tidak dicentang
                         $crud->dependsOn('shipping_weight', 'requires_shipping', true, 'enable');
 
                         // Nonaktifkan shipping_notes jika requires_shipping tidak dicentang
-                        $crud->dependsOn('shipping_notes', 'requires_shipping', true, 'enable');</code></pre>
+                        $crud->dependsOn('shipping_notes', 'requires_shipping', true, 'enable');
+
+                        // Dependent Dropdown: Category → Subcategory
+                        $crud->setRelation('category_id', 'categories', 'name');
+                        $crud->setDependentRelation('subcategory_id', 'category_id', 'subcategories', 'category_id', 'name');</code></pre>
                     </div>
                 </div>
 
@@ -179,6 +185,8 @@ class DependsOnDemo extends Controller
         // ─── Columns ─────────────────────────────────────────
         $crud->setColumns(
             'name',
+            'category_id',
+            'subcategory_id',
             'price',
             'has_discount',
             'discount_price',
@@ -190,6 +198,8 @@ class DependsOnDemo extends Controller
         // ─── Form Fields ─────────────────────────────────────
         $crud->setFields(
             'name',
+            'category_id',
+            'subcategory_id',
             'price',
             'has_discount',
             'discount_price',
@@ -202,6 +212,8 @@ class DependsOnDemo extends Controller
 
         // ─── Labels ──────────────────────────────────────────
         $crud->displayAs('name', 'Product Name');
+        $crud->displayAs('category_id', 'Category');
+        $crud->displayAs('subcategory_id', 'Subcategory');
         $crud->displayAs('price', 'Base Price');
         $crud->displayAs('has_discount', 'Have Discount?');
         $crud->displayAs('discount_price', 'Discount Price');
@@ -216,6 +228,18 @@ class DependsOnDemo extends Controller
         $crud->setFieldType('requires_shipping', 'true_false');
         $crud->setFieldType('is_active', 'true_false');
         $crud->setFieldType('discount_percent', 'integer');
+
+        // ─── Dependent Dropdown (Cascading Chained Select) ───
+        // Category dropdown (parent)
+        $crud->setRelation('category_id', 'categories', 'name', "status = 'active'");
+        // Subcategory dropdown (child) — filtered by selected category
+        $crud->setDependentRelation(
+            'subcategory_id',
+            'category_id',
+            'subcategories',
+            'category_id',
+            'name'
+        );
 
         // ─── Column Display ──────────────────────────────────
         $crud->callbackColumn('has_discount', function ($value) {
