@@ -65,9 +65,9 @@ class GroceryCrudDemo extends Controller
     }
 
     /**
-     * Get the navbar HTML with user info and logout button.
+     * Get the navbar HTML with user info, tabs, and logout button.
      */
-    private function renderNavbar(): string
+    private function renderNavbar(string $activePage = ''): string
     {
         $role = session()->get('role', 'viewer');
         $fullName = session()->get('fullName') ?: session()->get('username');
@@ -77,13 +77,30 @@ class GroceryCrudDemo extends Controller
             default  => 'bg-secondary',
         };
 
+        $tabs = [
+            'index'      => ['url' => '/grocery-crud-demo',          'icon' => 'bi-grid',         'label' => 'Overview'],
+            'products'   => ['url' => '/grocery-crud-demo/products', 'icon' => 'bi-box-seam',     'label' => 'Products'],
+            'categories' => ['url' => '/grocery-crud-demo/categories','icon' => 'bi-bookmark',     'label' => 'Categories'],
+            'tags'       => ['url' => '/grocery-crud-demo/tags',     'icon' => 'bi-tags',         'label' => 'Tags'],
+            'variants'   => ['url' => '/grocery-crud-demo/variants', 'icon' => 'bi-diagram-2',    'label' => 'Variants'],
+        ];
+
+        $tabsHtml = '';
+        foreach ($tabs as $key => $tab) {
+            $activeClass = $key === $activePage ? 'btn-info' : 'btn-outline-light';
+            $tabsHtml .= '<a href="' . $tab['url'] . '" class="btn btn-sm ' . $activeClass . '">'
+                . '<i class="bi ' . $tab['icon'] . ' me-1"></i>' . $tab['label'] . '</a>' . "\n                    ";
+        }
+
         return '
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="/grocery-crud-demo">
                     <i class="bi bi-grid me-2"></i>Grocery CRUD <small class="fw-light">RBAC Demo</small>
                 </a>
-                <div class="d-flex align-items-center gap-2">
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    ' . $tabsHtml . '
+                    <div class="vr text-light opacity-25 mx-1"></div>
                     <span class="text-light small">
                         <i class="bi bi-person-circle me-1"></i>'
                         . htmlspecialchars($fullName) .
@@ -93,7 +110,7 @@ class GroceryCrudDemo extends Controller
                         <i class="bi bi-person-vcard"></i>
                     </a>
                     <a href="/auth/logout" class="btn btn-outline-light btn-sm">
-                        <i class="bi bi-box-arrow-right me-1"></i>Logout
+                        <i class="bi bi-box-arrow-right me-1"></i>
                     </a>
                 </div>
             </div>
@@ -128,7 +145,7 @@ class GroceryCrudDemo extends Controller
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         </head>
         <body>
-            {$this->renderNavbar()}
+            {$this->renderNavbar('index')}
             <div class="container py-3">
                 <div class="row mb-4">
                     <div class="col">
@@ -472,8 +489,8 @@ class GroceryCrudDemo extends Controller
         // ======== RBAC ========
         $this->applyRbac($crud, 'products');
 
-        // ======== Render ========
-        return $crud->render();
+        // ======== Render with Navbar ========
+        return $crud->setPageHeader($this->renderNavbar('products'))->render();
     }
 
     /**
@@ -526,7 +543,7 @@ class GroceryCrudDemo extends Controller
         // RBAC
         $this->applyRbac($crud, 'categories');
 
-        return $crud->render();
+        return $crud->setPageHeader($this->renderNavbar('categories'))->render();
     }
 
     /**
@@ -587,7 +604,7 @@ class GroceryCrudDemo extends Controller
         // RBAC
         $this->applyRbac($crud, 'tags');
 
-        return $crud->render();
+        return $crud->setPageHeader($this->renderNavbar('tags'))->render();
     }
 
     /**
@@ -666,7 +683,7 @@ class GroceryCrudDemo extends Controller
         // ======== Theme ========
         $crud->setTheme($theme);
 
-        return $crud->render();
+        return $crud->setPageHeader($this->renderNavbar('products'))->render();
     }
 
     /**
@@ -755,6 +772,6 @@ class GroceryCrudDemo extends Controller
         // RBAC
         $this->applyRbac($crud, 'product_variants');
 
-        return $crud->render();
+        return $crud->setPageHeader($this->renderNavbar('variants'))->render();
     }
 }

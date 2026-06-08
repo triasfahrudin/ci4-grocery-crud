@@ -251,7 +251,7 @@ $crud->setActivityLogExcludeFields([
 
         $crud->setTheme('bootstrap5');
 
-        return $crud->render();
+        return $crud->setPageHeader($this->renderNavbar('categories'))->render();
     }
 
     /**

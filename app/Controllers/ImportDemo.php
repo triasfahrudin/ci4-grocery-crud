@@ -24,12 +24,51 @@ use GroceryCrud\GroceryCrud;
  */
 class ImportDemo extends Controller
 {
+    private function renderNavbar(string $activePage = ''): string
+    {
+        $fullName = session()->get('fullName') ?: session()->get('username') ?: 'Guest';
+
+        $tabs = [
+            'index'    => ['url' => '/import-demo',            'icon' => 'bi-info-circle', 'label' => 'Overview'],
+            'contacts' => ['url' => '/import-demo/contacts',   'icon' => 'bi-people',      'label' => 'Contacts'],
+        ];
+
+        $tabsHtml = '';
+        foreach ($tabs as $key => $tab) {
+            $activeClass = $key === $activePage ? 'btn-info' : 'btn-outline-light';
+            $tabsHtml .= '<a href="' . $tab['url'] . '" class="btn btn-sm ' . $activeClass . '">'
+                . '<i class="bi ' . $tab['icon'] . ' me-1"></i>' . $tab['label'] . '</a>' . "\n                    ";
+        }
+
+        return '
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="/import-demo">
+                    <i class="bi bi-upload me-2"></i>Import Demo <small class="fw-light">CSV/Excel</small>
+                </a>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    ' . $tabsHtml . '
+                    <div class="vr text-light opacity-25 mx-1"></div>
+                    <span class="text-light small">
+                        <i class="bi bi-person-circle me-1"></i>' . htmlspecialchars($fullName) . '
+                    </span>
+                    <a href="/grocery-crud-demo" class="btn btn-outline-light btn-sm" title="All Demos">
+                        <i class="bi bi-grid me-1"></i>All Demos
+                    </a>
+                    <a href="/auth/logout" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-box-arrow-right me-1"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>';
+    }
+
     /**
      * Main index page - shows demo info and link to the CRUD.
      */
     public function index(): string
     {
-        return <<<'HTML'
+        ob_start(); ?>
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -40,7 +79,8 @@ class ImportDemo extends Controller
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         </head>
         <body>
-            <div class="container py-5">
+            <?= $this->renderNavbar('index') ?>
+            <div class="container py-3">
                 <div class="row mb-4">
                     <div class="col">
                         <h1 class="display-5 fw-bold">
@@ -119,7 +159,7 @@ class ImportDemo extends Controller
             </div>
         </body>
         </html>
-        HTML;
+        <?php return ob_get_clean();
     }
 
     /**
@@ -177,6 +217,6 @@ class ImportDemo extends Controller
         $crud->setTheme('bootstrap5');
 
         // ─── Render ──────────────────────────────────────────
-        return $crud->render();
+        return $crud->setPageHeader($this->renderNavbar('contacts'))->render();
     }
 }
