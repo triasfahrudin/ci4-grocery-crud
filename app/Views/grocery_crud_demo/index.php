@@ -110,6 +110,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-warning">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-folder2-open me-2 text-warning"></i>File Manager</h5>
+                        <p class="card-text text-muted small">Demo File Manager — upload file, buat folder, rename, delete, copy, move, dan cari file langsung dari toolbar CRUD.</p>
+                        <a href="/grocery-crud-demo/products" class="btn btn-warning text-white">Buka</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ======== Theme Demos ======== -->
@@ -201,6 +210,7 @@
                                 <tr><td><strong>Ekspor Kolom Tertentu</strong></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
                                 <tr><td><strong>Penampil Activity Log</strong></td><td>-</td><td>✓</td><td>-</td><td>-</td></tr>
                                 <tr><td><strong>Dropdown Bertingkat</strong></td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                                <tr><td><strong>File Manager</strong></td><td>✓</td><td>-</td><td>-</td><td>-</td></tr>
                             </tbody>
                         </table>
                         <p class="text-muted small mt-2 mb-0">

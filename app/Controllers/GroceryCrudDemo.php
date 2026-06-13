@@ -24,6 +24,7 @@ use GroceryCrud\GroceryCrud;
  * - Sort by column headers
  * - Image viewer (click thumbnail)
  * - Repeater Fields (Nova-style repeatable groups)
+ * - File Manager (upload, create folder, rename, delete, move, copy, search)
  * - AdminLTE 4 Theme
  * - Indonesian language
  * - Soft Delete
@@ -73,6 +74,7 @@ class GroceryCrudDemo extends Controller
                 'categories' => ['url' => '/grocery-crud-demo/categories','icon' => 'bi-bookmark',     'label' => 'Categories'],
                 'tags'       => ['url' => '/grocery-crud-demo/tags',     'icon' => 'bi-tags',         'label' => 'Tags'],
                 'variants'   => ['url' => '/grocery-crud-demo/variants', 'icon' => 'bi-diagram-2',    'label' => 'Variants'],
+                'file-manager' => ['url' => '/grocery-crud-demo/products','icon' => 'bi-folder2-open',  'label' => 'File Manager'],
             ],
             'activePage'   => $activePage,
             'showRole'     => true,
@@ -216,6 +218,14 @@ class GroceryCrudDemo extends Controller
                 'name' => session()->get('fullName') ?: session()->get('username'),
             ];
         });
+
+        // ==== File Manager ====
+        $crud->setFileManager([
+            'basePath' => FCPATH . 'uploads',
+            'baseUrl'  => base_url('uploads'),
+            'allowedTypes' => 'jpg|jpeg|png|gif|webp|pdf|doc|docx|xls|xlsx|csv|zip|txt|md',
+            'maxSize'  => 10240,
+        ]);
 
         $this->applyRbac($crud, 'products');
 
