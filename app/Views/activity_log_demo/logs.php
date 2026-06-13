@@ -41,12 +41,12 @@
     <div class="container py-3">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="fw-bold mb-0">
-                <i class="bi bi-list-check text-primary me-2"></i>Activity Logs
-                <span class="badge bg-secondary fs-6 align-middle"><?= $total ?> entries</span>
+                <i class="bi bi-list-check text-primary me-2"></i>Log Aktivitas
+                <span class="badge bg-secondary fs-6 align-middle"><?= $total ?> entri</span>
             </h3>
             <div>
                 <a href="/activity-log-demo/logs" class="btn btn-sm btn-outline-secondary">
-                    <i class="bi bi-arrow-clockwise me-1"></i>Reset
+                    <i class="bi bi-arrow-clockwise me-1"></i>Atur Ulang
                 </a>
             </div>
         </div>
@@ -59,11 +59,11 @@
                 <select name="action" class="form-select form-select-sm"><?= $optAction ?></select>
             </div>
             <div class="col-md-4">
-                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search user, table, record..." value="<?= $searchEsc ?>">
+                    <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari pengguna, tabel, record..." value="<?= $searchEsc ?>">
             </div>
             <div class="col-md-2">
                 <button type="submit" class="btn btn-sm btn-primary w-100">
-                    <i class="bi bi-funnel me-1"></i>Filter
+                    <i class="bi bi-funnel me-1"></i>Saring
                 </button>
             </div>
         </form>
@@ -72,12 +72,12 @@
             <table class="table table-sm table-hover table-bordered align-middle">
                 <thead class="table-dark">
                     <tr>
-                        <th style="width:150px;">Timestamp</th>
-                        <th style="width:90px;">Action</th>
-                        <th style="width:120px;">Table</th>
+                        <th style="width:150px;">Waktu</th>
+                        <th style="width:90px;">Aksi</th>
+                        <th style="width:120px;">Tabel</th>
                         <th style="width:80px;">Record</th>
-                        <th>User</th>
-                        <th style="width:130px;">IP Address</th>
+                        <th>Pengguna</th>
+                        <th style="width:130px;">Alamat IP</th>
                         <th style="width:50px;">Diff</th>
                     </tr>
                 </thead>
@@ -85,7 +85,7 @@
                 <?php if (empty($logs)): ?>
                     <tr><td colspan="8" class="text-center text-muted py-4">
                         <i class="bi bi-inbox fs-3 d-block mb-2"></i>
-                        No activity logs found. Try performing some CRUD operations first.
+                        Belum ada log aktivitas. Coba lakukan operasi CRUD terlebih dahulu.
                     </td></tr>
                 <?php else: ?>
                     <?php foreach ($logs as $log):
@@ -120,13 +120,13 @@
                             <div class="row g-3">
                             <?php if (!empty($oldJson)): ?>
                                 <div class="col-md-6">
-                                    <h6 class="text-danger mb-2"><i class="bi bi-arrow-left-circle me-1"></i>Old Data</h6>
+                                    <h6 class="text-danger mb-2"><i class="bi bi-arrow-left-circle me-1"></i>Data Lama</h6>
                                     <pre class="bg-dark text-light p-2 rounded small mb-0" style="max-height:300px;overflow:auto;font-size:0.75rem;"><?= $oldJson ?></pre>
                                 </div>
                             <?php endif; ?>
                             <?php if (!empty($newJson)): ?>
                                 <div class="col-md-6">
-                                    <h6 class="text-success mb-2"><i class="bi bi-arrow-right-circle me-1"></i>New Data</h6>
+                                    <h6 class="text-success mb-2"><i class="bi bi-arrow-right-circle me-1"></i>Data Baru</h6>
                                     <pre class="bg-dark text-light p-2 rounded small mb-0" style="max-height:300px;overflow:auto;font-size:0.75rem;"><?= $newJson ?></pre>
                                 </div>
                             <?php endif; ?>
@@ -168,12 +168,12 @@
         <?php endif; ?>
 
         <div class="text-muted small mt-2">
-            Showing page <?= $page ?> of <?= $totalPages ?> (<?= $total ?> total records)
+            Menampilkan halaman <?= $page ?> dari <?= $totalPages ?> (<?= $total ?> total record)
         </div>
 
         <div class="mt-3">
             <a href="/activity-log-demo" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i>Back to Overview
+                <i class="bi bi-arrow-left me-1"></i>Kembali ke Beranda
             </a>
         </div>
     </div>

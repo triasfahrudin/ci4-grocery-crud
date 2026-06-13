@@ -43,7 +43,7 @@
                 <div class="card h-100 shadow-sm border-primary">
                     <div class="card-body text-center py-4">
                         <div class="display-3 text-primary mb-3"><i class="bi bi-pencil-square"></i></div>
-                        <h5>Auto Recording</h5>
+                        <h5>Rekaman Otomatis</h5>
                         <p class="text-muted small">
                             Setiap Insert, Update, Delete, Restore, dan Import otomatis tercatat
                             lengkap dengan data sebelum dan sesudah.
@@ -55,7 +55,7 @@
                 <div class="card h-100 shadow-sm border-success">
                     <div class="card-body text-center py-4">
                         <div class="display-3 text-success mb-3"><i class="bi bi-person-badge"></i></div>
-                        <h5>User Tracking</h5>
+                        <h5>Pelacakan Pengguna</h5>
                         <p class="text-muted small">
                             Ketahui siapa yang melakukan perubahan — user ID, nama, IP address,
                             dan user agent tercatat otomatis.
@@ -67,7 +67,7 @@
                 <div class="card h-100 shadow-sm border-info">
                     <div class="card-body text-center py-4">
                         <div class="display-3 text-info mb-3"><i class="bi bi-file-diff"></i></div>
-                        <h5>Before / After Diff</h5>
+                        <h5>Sebelum / Sesudah</h5>
                         <p class="text-muted small">
                             Data sebelum dan sesudah perubahan disimpan sebagai JSON,
                             bisa dibandingkan untuk audit yang akurat.
@@ -81,7 +81,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm h-100">
                     <div class="card-header">
-                        <h5 class="mb-0"><i class="bi bi-code-slash me-2"></i>Source Code</h5>
+                        <h5 class="mb-0"><i class="bi bi-code-slash me-2"></i>Kode Sumber</h5>
                     </div>
                     <div class="card-body">
                         <pre class="bg-dark text-light p-3 rounded mb-0" style="font-size:0.85rem;"><code>// Enable with user resolver
@@ -110,22 +110,22 @@ $crud->setActivityLogExcludeFields([
             <div class="col-md-6">
                 <div class="card shadow-sm h-100">
                     <div class="card-header">
-                        <h5 class="mb-0"><i class="bi bi-table me-2"></i>Log Features</h5>
+                        <h5 class="mb-0"><i class="bi bi-table me-2"></i>Fitur Log</h5>
                     </div>
                     <div class="card-body">
                         <table class="table table-sm table-bordered mb-0">
                             <thead class="table-light">
-                                <tr><th>Feature</th><th>Description</th></tr>
+                                <tr><th>Fitur</th><th>Keterangan</th></tr>
                             </thead>
                             <tbody>
                                 <tr><td>Insert</td><td>Mencatat data baru yang ditambahkan</td></tr>
                                 <tr><td>Update</td><td>Mencatat data sebelum &amp; sesudah perubahan</td></tr>
                                 <tr><td>Delete</td><td>Mencatat data yang dihapus</td></tr>
-                                <tr><td>Restore</td><td>Mencatat restore dari soft delete</td></tr>
-                                <tr><td>Batch</td><td>Mencatat batch delete/restore per record</td></tr>
-                                <tr><td>Import</td><td>Mencatat data hasil import CSV/Excel</td></tr>
-                                <tr><td>Filter</td><td>Filter by table, action, user, date range</td></tr>
-                                <tr><td>Purge</td><td>Hapus otomatis log lebih dari N hari</td></tr>
+                                <tr><td>Restore</td><td>Mencatat pemulihan dari penghapusan lunak</td></tr>
+                                <tr><td>Batch</td><td>Mencatat penghapusan/pemulihan massal per record</td></tr>
+                                <tr><td>Import</td><td>Mencatat data hasil impor CSV/Excel</td></tr>
+                                <tr><td>Filter</td><td>Filter berdasarkan tabel, aksi, pengguna, rentang tanggal</td></tr>
+                                <tr><td>Purge</td><td>Bersihkan otomatis log lebih dari N hari</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -135,10 +135,10 @@ $crud->setActivityLogExcludeFields([
 
         <div class="text-center mb-4">
             <a href="/activity-log-demo/categories" class="btn btn-lg btn-primary px-5 me-2">
-                <i class="bi bi-play-circle me-2"></i>Try the Demo
+                <i class="bi bi-play-circle me-2"></i>Coba Demo
             </a>
             <a href="/activity-log-demo/logs" class="btn btn-lg btn-outline-secondary px-5">
-                <i class="bi bi-list-check me-2"></i>View Logs
+                <i class="bi bi-list-check me-2"></i>Lihat Log
             </a>
         </div>
     </div>

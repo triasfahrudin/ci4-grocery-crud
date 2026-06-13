@@ -160,7 +160,7 @@ class ActivityLogDemo extends Controller
             'import'  => '<span class="badge bg-info text-dark">IMPORT</span>',
         ];
 
-        $optTable = '<option value="">All Tables</option>';
+        $optTable = '<option value="">Semua Tabel</option>';
         foreach ($tables as $t) {
             $sel = $t['table_name'] === $filterTable ? ' selected' : '';
             $optTable .= '<option value="' . esc($t['table_name']) . '"' . $sel . '>'
@@ -168,7 +168,7 @@ class ActivityLogDemo extends Controller
         }
 
         $actions   = ['insert', 'update', 'delete', 'restore', 'import'];
-        $optAction = '<option value="">All Actions</option>';
+        $optAction = '<option value="">Semua Aksi</option>';
         foreach ($actions as $a) {
             $sel = $a === $filterAction ? ' selected' : '';
             $optAction .= '<option value="' . $a . '"' . $sel . '>' . ucfirst($a) . '</option>';

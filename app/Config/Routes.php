@@ -79,6 +79,20 @@ $routes->group('activity-log-demo', ['filter' => 'auth'], static function ($rout
     $routes->post('categories/(:any)',      'ActivityLogDemo::categories/$1');
 });
 
+// File Manager Demo Routes (protected by auth filter)
+$routes->group('file-manager-demo', ['filter' => 'auth'], static function ($routes): void {
+    $routes->get('/',                       'FileManagerDemo::index');
+    $routes->get('contacts',                'FileManagerDemo::contacts');
+    $routes->post('contacts',               'FileManagerDemo::contacts');
+    $routes->get('products',                'FileManagerDemo::products');
+    $routes->post('products',               'FileManagerDemo::products');
+    // Catch-all for AJAX actions
+    $routes->get('contacts/(:any)',         'FileManagerDemo::contacts/$1');
+    $routes->post('contacts/(:any)',        'FileManagerDemo::contacts/$1');
+    $routes->get('products/(:any)',         'FileManagerDemo::products/$1');
+    $routes->post('products/(:any)',        'FileManagerDemo::products/$1');
+});
+
 // Image CRUD Demo Routes (protected by auth filter)
 $routes->group('image-crud-demo', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/',                       'ImageCrudDemo::index');

@@ -95,9 +95,9 @@ class GroceryCrudDemo extends Controller
         };
 
         $permNotes = match ($role) {
-            'admin'  => '<span class="text-danger fw-semibold">Full access:</span> add, edit, delete, view, export',
-            'editor' => '<span class="text-warning fw-semibold">Limited access:</span> add, edit, view, export (no delete)',
-            default  => '<span class="text-secondary fw-semibold">Read-only:</span> view and export only',
+            'admin'  => '<span class="text-danger fw-semibold">Akses penuh:</span> tambah, edit, hapus, lihat, ekspor',
+            'editor' => '<span class="text-warning fw-semibold">Akses terbatas:</span> tambah, edit, lihat, ekspor (tanpa hapus)',
+            default  => '<span class="text-secondary fw-semibold">Hanya baca:</span> lihat dan ekspor saja',
         };
 
         return view('grocery_crud_demo/index', [

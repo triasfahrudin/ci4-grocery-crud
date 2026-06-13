@@ -36,12 +36,12 @@
         <div class="row mb-4">
             <div class="col">
                 <h1 class="display-5 fw-bold">Image CRUD Demo</h1>
-                <p class="text-muted">CodeIgniter 4 — Instant Photo Gallery CRUD</p>
+                <p class="text-muted">CodeIgniter 4 — CRUD Galeri Foto Instan</p>
                 <hr>
                 <p class="lead">
-                    Image CRUD is an automatic multiple image uploader for CodeIgniter 4,
-                    using the same philosophy as Grocery CRUD library. Just a few lines of code
-                    and you have a full photo gallery CRUD.
+                    Image CRUD adalah pengunggah banyak gambar otomatis untuk CodeIgniter 4,
+                    menggunakan filosofi yang sama dengan library Grocery CRUD. Cukup beberapa baris kode
+                    dan Anda memiliki CRUD galeri foto lengkap.
                 </p>
             </div>
         </div>
@@ -53,9 +53,9 @@
                         <h5 class="card-title">
                             <i class="bi bi-image me-2 text-primary"></i>Simple Gallery
                         </h5>
-                        <p class="card-text text-muted small">Basic image gallery with upload, delete, and lightbox.</p>
+                        <p class="card-text text-muted small">Galeri gambar dasar dengan unggah, hapus, dan lightbox.</p>
                         <p class="small text-muted">Table: <code>example_1</code> (id, url)</p>
-                        <a href="/image-crud-demo/simple" class="btn btn-primary">Open</a>
+                        <a href="/image-crud-demo/simple" class="btn btn-primary">Buka</a>
                     </div>
                 </div>
             </div>
@@ -65,9 +65,9 @@
                         <h5 class="card-title">
                             <i class="bi bi-arrows-move me-2 text-success"></i>With Ordering
                         </h5>
-                        <p class="card-text text-muted small">Gallery with drag-and-drop reordering.</p>
+                        <p class="card-text text-muted small">Galeri dengan urut ulang drag-and-drop.</p>
                         <p class="small text-muted">Table: <code>example_2</code> (id, url, priority)</p>
-                        <a href="/image-crud-demo/ordering" class="btn btn-success">Open</a>
+                        <a href="/image-crud-demo/ordering" class="btn btn-success">Buka</a>
                     </div>
                 </div>
             </div>
@@ -77,9 +77,9 @@
                         <h5 class="card-title">
                             <i class="bi bi-tags me-2 text-warning"></i>With Relation
                         </h5>
-                        <p class="card-text text-muted small">Gallery filtered by category relation.</p>
+                        <p class="card-text text-muted small">Galeri yang difilter berdasarkan relasi kategori.</p>
                         <p class="small text-muted">Table: <code>example_3</code> (id, url, category_id, priority)</p>
-                        <a href="/image-crud-demo/relation" class="btn btn-warning text-white">Open</a>
+                        <a href="/image-crud-demo/relation" class="btn btn-warning text-white">Buka</a>
                     </div>
                 </div>
             </div>
@@ -89,9 +89,9 @@
                         <h5 class="card-title">
                             <i class="bi bi-input-cursor me-2 text-info"></i>With Title
                         </h5>
-                        <p class="card-text text-muted small">Gallery with editable titles for each image.</p>
+                        <p class="card-text text-muted small">Galeri dengan judul yang dapat diedit untuk setiap gambar.</p>
                         <p class="small text-muted">Table: <code>example_4</code> (id, title, url, priority)</p>
-                        <a href="/image-crud-demo/title" class="btn btn-info text-white">Open</a>
+                        <a href="/image-crud-demo/title" class="btn btn-info text-white">Buka</a>
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        <h5 class="mb-0">How to Use</h5>
+                        <h5 class="mb-0">Cara Penggunaan</h5>
                     </div>
                     <div class="card-body">
                         <p>In your controller:</p>

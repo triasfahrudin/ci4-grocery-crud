@@ -31,7 +31,7 @@
                     <i class="bi bi-upload text-primary me-2"></i>CSV/Excel Import
                 </h1>
                 <p class="text-muted lead">
-                    Upload CSV atau Excel (.xlsx) — auto-detect column mapping, preview, lalu import data.
+                    Unggah CSV atau Excel (.xlsx) — deteksi otomatis pemetaan kolom, pratinjau, lalu impor data.
                 </p>
                 <hr>
             </div>
@@ -43,9 +43,9 @@
                     <div class="display-3 text-primary mb-3">
                         <i class="bi bi-filetype-csv"></i>
                     </div>
-                    <h5>Step 1: Upload</h5>
+                    <h5>Langkah 1: Upload</h5>
                     <p class="text-muted small px-3">
-                        Pilih file CSV atau Excel (.xlsx). File diproses di backend untuk ekstrak headers &amp; preview.
+                        Pilih file CSV atau Excel (.xlsx). File diproses di backend untuk ekstrak header &amp; pratinjau.
                     </p>
                 </div>
             </div>
@@ -54,9 +54,9 @@
                     <div class="display-3 text-success mb-3">
                         <i class="bi bi-diagram-2"></i>
                     </div>
-                    <h5>Step 2: Mapping</h5>
+                    <h5>Langkah 2: Pemetaan</h5>
                     <p class="text-muted small px-3">
-                        Cocokkan kolom file dengan field form. Auto-detect mapping berdasarkan kemiripan nama.
+                        Cocokkan kolom file dengan kolom form. Deteksi otomatis pemetaan berdasarkan kemiripan nama.
                     </p>
                 </div>
             </div>
@@ -65,9 +65,9 @@
                     <div class="display-3 text-info mb-3">
                         <i class="bi bi-check2-circle"></i>
                     </div>
-                    <h5>Step 3: Import</h5>
+                    <h5>Langkah 3: Import</h5>
                     <p class="text-muted small px-3">
-                        Preview data baris pertama, konfirmasi, lalu import. Error per-row dilaporkan.
+                        Pratinjau data baris pertama, konfirmasi, lalu impor. Error per-baris dilaporkan.
                     </p>
                 </div>
             </div>
@@ -75,7 +75,7 @@
 
         <div class="text-center mb-4">
             <a href="/import-demo/contacts" class="btn btn-lg btn-primary px-5">
-                <i class="bi bi-people me-2"></i>Open Contacts CRUD
+                <i class="bi bi-people me-2"></i>Buka CRUD Kontak
             </a>
         </div>
 
@@ -97,7 +97,7 @@
 
         <div class="mt-4">
             <a href="/grocery-crud-demo" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i>Back to All Demos
+                <i class="bi bi-arrow-left me-1"></i>Kembali ke Semua Demo
             </a>
         </div>
     </div>

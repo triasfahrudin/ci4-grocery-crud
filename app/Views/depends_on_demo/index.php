@@ -28,10 +28,10 @@
         <div class="row mb-4">
             <div class="col">
                 <h1 class="display-5 fw-bold">
-                    <i class="bi bi-toggle-on text-primary me-2"></i>Dynamic Form Conditions
+                    <i class="bi bi-toggle-on text-primary me-2"></i>Kondisi Form Dinamis
                 </h1>
                 <p class="text-muted lead">
-                    Show/hide atau enable/disable field berdasarkan nilai field lain (<code>dependsOn</code>).
+                    Tampil/sembunyi atau aktif/nonaktif kolom berdasarkan nilai kolom lain (<code>dependsOn</code>).
                 </p>
                 <hr>
             </div>
@@ -42,7 +42,7 @@
                 <div class="card h-100 shadow-sm border-primary">
                     <div class="card-body text-center py-4">
                         <div class="display-3 text-primary mb-3"><i class="bi bi-eye-slash"></i></div>
-                        <h5>Action: <code>show</code></h5>
+                        <h5>Aksi: <code>show</code></h5>
                         <p class="card-text text-muted small">
                             Field <strong>discount_price</strong> &amp; <strong>discount_percent</strong>
                             hanya tampil saat switch <code>has_discount</code> ON.
@@ -54,7 +54,7 @@
                 <div class="card h-100 shadow-sm border-success">
                     <div class="card-body text-center py-4">
                         <div class="display-3 text-success mb-3"><i class="bi bi-unlock"></i></div>
-                        <h5>Action: <code>enable</code></h5>
+                        <h5>Aksi: <code>enable</code></h5>
                         <p class="card-text text-muted small">
                             Field <strong>shipping_weight</strong> &amp; <strong>shipping_notes</strong>
                             hanya aktif saat switch <code>requires_shipping</code> ON.
@@ -68,8 +68,8 @@
                         <div class="display-3 text-warning mb-3"><i class="bi bi-link-45deg"></i></div>
                         <h5>Dependent Dropdown</h5>
                         <p class="card-text text-muted small">
-                            Field <strong>Category</strong> → pilih kategori, lalu <strong>Subcategory</strong>
-                            otomatis terfilter (chained/cascading select).
+                            Kolom <strong>Kategori</strong> → pilih kategori, lalu <strong>Subkategori</strong>
+                            otomatis terfilter (pilihan bertingkat/berantai).
                         </p>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
 
         <div class="text-center mb-4">
             <a href="/depends-on-demo/products" class="btn btn-lg btn-primary px-5">
-                <i class="bi bi-box-seam me-2"></i>Open Demo CRUD
+                <i class="bi bi-box-seam me-2"></i>Buka Demo CRUD
             </a>
         </div>
 
@@ -107,7 +107,7 @@
 
         <div class="mt-4">
             <a href="/grocery-crud-demo" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i>Back to All Demos
+                <i class="bi bi-arrow-left me-1"></i>Kembali ke Semua Demo
             </a>
         </div>
     </div>

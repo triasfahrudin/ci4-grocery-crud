@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Grocery CRUD Demo</title>
+    <title>Masuk - Grocery CRUD Demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
@@ -46,7 +46,7 @@
                     <div class="login-header">
                         <i class="bi bi-shield-lock"></i>
                         <h4 class="mt-2 mb-0 fw-bold">Grocery CRUD</h4>
-                        <p class="mb-0 opacity-75 small">RBAC Demo - Silakan Login</p>
+                        <p class="mb-0 opacity-75 small">RBAC Demo - Silakan Masuk</p>
                     </div>
                     <div class="login-body">
                         <?php if (!empty($error)): ?>
@@ -58,24 +58,24 @@
                                 <label class="form-label small fw-semibold">Username</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                    <input type="text" name="username" class="form-control" placeholder="Enter username" required autofocus>
+                                    <input type="text" name="username" class="form-control" placeholder="Masukkan username" required autofocus>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-semibold">Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+                                    <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 mb-3">
-                                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                                <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
                             </button>
                         </form>
 
                         <hr>
                         <div class="small text-muted">
-                            <p class="mb-2 fw-semibold">Demo Credentials:</p>
+                            <p class="mb-2 fw-semibold">Kredensial Demo:</p>
                             <table class="table table-sm table-borderless small mb-0">
                                 <tr>
                                     <td><span class="role-badge bg-danger text-white">Admin</span></td>

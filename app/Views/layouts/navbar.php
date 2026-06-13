@@ -49,13 +49,13 @@ $badgeClass = match ($role) {
                 <?php endif; ?>
             </span>
             <?php if ($showProfile): ?>
-                <a href="/auth/profile" class="btn btn-outline-light btn-sm" title="Profile">
-                    <i class="bi bi-person-vcard"></i>
-                </a>
+                                <a href="/auth/profile" class="btn btn-outline-light btn-sm" title="Profil">
+                                    <i class="bi bi-person-vcard"></i>
+                                </a>
             <?php endif; ?>
             <?php if ($showAllDemos): ?>
-                <a href="/grocery-crud-demo" class="btn btn-outline-light btn-sm" title="All Demos">
-                    <i class="bi bi-grid me-1"></i>All Demos
+                <a href="/grocery-crud-demo" class="btn btn-outline-light btn-sm" title="Semua Demo">
+                    <i class="bi bi-grid me-1"></i>Semua Demo
                 </a>
             <?php endif; ?>
             <a href="/auth/logout" class="btn btn-outline-light btn-sm">
