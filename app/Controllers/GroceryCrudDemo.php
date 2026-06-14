@@ -231,6 +231,11 @@ class GroceryCrudDemo extends Controller
             ];
         });
 
+        // 🔥 DB Settings: simpan pengaturan tabel (urutan kolom, visibilitas) per user ke database
+        $crud->setSettingUserId(function () {
+            return (string) session()->get('userId');
+        });
+
         // File Manager sudah otomatis aktif via setUpload() di atas.
         // Tidak perlu setFileManager() lagi — tombol toolbar File Manager
         // hanya muncul jika setFileManager() dipanggil secara eksplisit.
