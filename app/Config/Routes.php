@@ -93,6 +93,16 @@ $routes->group('file-manager-demo', ['filter' => 'auth'], static function ($rout
     $routes->post('products/(:any)',        'FileManagerDemo::products/$1');
 });
 
+// Clone/Duplicate Demo Routes (protected by auth filter)
+$routes->group('clone-demo', ['filter' => 'auth'], static function ($routes): void {
+    $routes->get('/',                       'CloneDemo::index');
+    $routes->get('products',                'CloneDemo::products');
+    $routes->post('products',               'CloneDemo::products');
+    // Catch-all for AJAX actions
+    $routes->get('products/(:any)',         'CloneDemo::products/$1');
+    $routes->post('products/(:any)',        'CloneDemo::products/$1');
+});
+
 // Image CRUD Demo Routes (protected by auth filter)
 $routes->group('image-crud-demo', ['filter' => 'auth'], static function ($routes): void {
     $routes->get('/',                       'ImageCrudDemo::index');

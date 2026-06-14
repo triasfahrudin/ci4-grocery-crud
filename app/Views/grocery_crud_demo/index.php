@@ -119,6 +119,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-info">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-copy me-2 text-info"></i>Clone / Duplicate</h5>
+                        <p class="card-text text-muted small">Demo Duplikasi Record — salin record hanya dengan satu klik. Tombol <i class="bi bi-copy"></i> di samping Edit.</p>
+                        <a href="/clone-demo" class="btn btn-info text-white">Buka</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ======== Theme Demos ======== -->
