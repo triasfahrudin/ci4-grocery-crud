@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Navbar partial — data-driven, reusable across all demo controllers.
  *
@@ -37,7 +38,7 @@ $badgeClass = match ($role) {
         <div class="d-flex align-items-center gap-2 flex-wrap">
             <?php foreach ($tabs as $key => $tab): ?>
                 <a href="<?= $tab['url'] ?>"
-                   class="btn btn-sm <?= $key === $activePage ? 'btn-info' : 'btn-outline-light' ?>">
+                    class="btn btn-sm <?= $key === $activePage ? 'btn-info' : 'btn-outline-light' ?>">
                     <i class="bi <?= $tab['icon'] ?> me-1"></i><?= $tab['label'] ?>
                 </a>
             <?php endforeach; ?>
@@ -49,9 +50,9 @@ $badgeClass = match ($role) {
                 <?php endif; ?>
             </span>
             <?php if ($showProfile): ?>
-                                <a href="/auth/profile" class="btn btn-outline-light btn-sm" title="Profil">
-                                    <i class="bi bi-person-vcard"></i>
-                                </a>
+                <a href="/auth/profile" class="btn btn-outline-light btn-sm" title="Profil">
+                    <i class="bi bi-person-vcard"></i>
+                </a>
             <?php endif; ?>
             <?php if ($showAllDemos): ?>
                 <a href="/grocery-crud-demo" class="btn btn-outline-light btn-sm" title="Semua Demo">

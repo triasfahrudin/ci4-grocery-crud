@@ -73,8 +73,7 @@ class GroceryCrudDemo extends Controller
                 'products'   => ['url' => '/grocery-crud-demo/products', 'icon' => 'bi-box-seam',     'label' => 'Products'],
                 'categories' => ['url' => '/grocery-crud-demo/categories','icon' => 'bi-bookmark',     'label' => 'Categories'],
                 'tags'       => ['url' => '/grocery-crud-demo/tags',     'icon' => 'bi-tags',         'label' => 'Tags'],
-                'variants'   => ['url' => '/grocery-crud-demo/variants', 'icon' => 'bi-diagram-2',    'label' => 'Variants'],
-                'file-manager' => ['url' => '/grocery-crud-demo/products','icon' => 'bi-folder2-open',  'label' => 'File Manager'],
+                'variants'   => ['url' => '/grocery-crud-demo/variants', 'icon' => 'bi-diagram-2',    'label' => 'Variants']                
             ],
             'activePage'   => $activePage,
             'showRole'     => true,
