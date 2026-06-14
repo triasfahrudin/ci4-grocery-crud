@@ -184,6 +184,13 @@ class GroceryCrudDemo extends Controller
             return ($row['_raw']['is_active'] ?? $row['is_active']) == 0;
         });
 
+        // 🔥 Callback handler: saat "Activate" diklik, update is_active = 1
+        $crud->setActionCallback('Activate', function ($id, $row) {
+            $db = \Config\Database::connect();
+            $db->table('products')->where('id', $id)->update(['is_active' => 1]);
+            return ['success' => true, 'message' => 'Product activated successfully.'];
+        });
+
         $crud->callbackBeforeInsert(function ($data) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
