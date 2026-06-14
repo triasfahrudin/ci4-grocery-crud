@@ -645,11 +645,10 @@
             "dist": {
                 "type": "path",
                 "url": "../grocery-crud",
-                "reference": "5edff2f272c3b765e514464438d7a220d0f3ffea"
+                "reference": "f7ffda90b85b6ea332dc1842dc889efe05f0aff0"
             },
             "require": {
                 "codeigniter4/framework": "^4.5",
-                "dompdf/dompdf": "^3.1",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "php": "^8.1"
@@ -658,9 +657,10 @@
                 "phpunit/phpunit": "^10.0"
             },
             "suggest": {
+                "dompdf/dompdf": "Required for PDF export functionality",
                 "ext-gd": "Required for image thumbnail generation in upload features",
                 "ext-zip": "Required for Excel export support",
-                "phpoffice/phpspreadsheet": "Advanced Excel export with formatting"
+                "phpoffice/phpspreadsheet": "Required for Excel export and XLSX file import"
             },
             "type": "library",
             "autoload": {

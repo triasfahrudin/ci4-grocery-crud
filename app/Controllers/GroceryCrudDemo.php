@@ -176,7 +176,7 @@ class GroceryCrudDemo extends Controller
             if (empty($value)) {
                 return '<span class="text-muted">—</span>';
             }
-            return '<img src="/uploads/image/' . $value . '" class="gc-thumb" alt="">';
+            return '<img src="' . base_url('uploads/' . $value) . '" class="gc-thumb" alt="">';
         });
 
         $crud->callbackBeforeInsert(function ($data) {
@@ -219,13 +219,9 @@ class GroceryCrudDemo extends Controller
             ];
         });
 
-        // ==== File Manager ====
-        $crud->setFileManager([
-            'basePath' => FCPATH . 'uploads',
-            'baseUrl'  => base_url('uploads'),
-            'allowedTypes' => 'jpg|jpeg|png|gif|webp|pdf|doc|docx|xls|xlsx|csv|zip|txt|md',
-            'maxSize'  => 10240,
-        ]);
+        // File Manager sudah otomatis aktif via setUpload() di atas.
+        // Tidak perlu setFileManager() lagi — tombol toolbar File Manager
+        // hanya muncul jika setFileManager() dipanggil secara eksplisit.
 
         $this->applyRbac($crud, 'products');
 
@@ -407,7 +403,7 @@ class GroceryCrudDemo extends Controller
             if (empty($value)) {
                 return '<span class="text-muted">—</span>';
             }
-            return '<img src="/uploads/image/' . $value . '" class="gc-thumb" alt="">';
+            return '<img src="' . base_url('uploads/' . $value) . '" class="gc-thumb" alt="">';
         });
 
         $crud->callbackColumn('is_active', function ($value, $row) {
