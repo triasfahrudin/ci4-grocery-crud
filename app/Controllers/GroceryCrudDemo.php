@@ -178,6 +178,12 @@ class GroceryCrudDemo extends Controller
             return '<img src="' . base_url('uploads/' . $value) . '" class="gc-thumb" alt="">';
         });
 
+        // 🔥 Conditional Action: tombol "Activate" hanya muncul untuk produk yang inactive
+        // Gunakan $row['_raw'] untuk mengakses nilai asli sebelum callbackColumn
+        $crud->addAction('Activate', 'bi-toggle-on', '#', 'btn-success', function ($row) {
+            return ($row['_raw']['is_active'] ?? $row['is_active']) == 0;
+        });
+
         $crud->callbackBeforeInsert(function ($data) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
